@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 20170827231337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,15 +23,32 @@ ActiveRecord::Schema.define(version: 2) do
     t.index ["user_id"], name: "index_examples_on_user_id", using: :btree
   end
 
+  create_table "playlists", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "playlist_name"
+    t.string   "playlist_song"
+    t.string   "playlist_singer"
+    t.string   "playlist_album"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["user_id"], name: "index_playlists_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
     t.string   "token",           null: false
     t.string   "password_digest", null: false
+    t.string   "given_name"
+    t.string   "family_name"
+    t.string   "user_handle"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["token"], name: "index_users_on_token", unique: true, using: :btree
+    t.index ["family_name"], name: "index_users_on_family_name", unique: true, using: :btree
+    t.index ["given_name"], name: "index_users_on_given_name", unique: true, using: :btree
+    t.index ["user_handle"], name: "index_users_on_user_handle", unique: true, using: :btree
   end
 
   add_foreign_key "examples", "users"
+  add_foreign_key "playlists", "users"
 end
