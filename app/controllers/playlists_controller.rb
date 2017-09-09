@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PlaylistsController < OpenReadController
-  before_action :set_playlist, only: [:show, :update, :destroy]
+  before_action :set_playlist, only: %i[show update destroy]
 
   # GET /playlists
   def index
@@ -38,14 +40,15 @@ class PlaylistsController < OpenReadController
     @playlist.destroy
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_playlist
-      @playlist = Playlist.find(params[:id])
-    end
+  # private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_playlist
+    @playlist = Playlist.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def playlist_params
-      params.require(:playlist).permit(:user_id, :playlist_name, :playlist_song, :playlist_singer, :playlist_album)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def playlist_params
+    params.require(:playlist).permit(:user_id, :playlist_name, :playlist_song,
+                                     :playlist_singer, :playlist_album)
+  end
 end

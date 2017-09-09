@@ -1,5 +1,5 @@
 API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/playlists"
+URL_PATH="/playlists/${ID}"
 curl "${API}${URL_PATH}" \
   --include \
   --request GET \
