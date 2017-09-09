@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
-  resources :comments
+  resources :comments, only: [:index, :show, :create, :destroy, :update]
   resources :playlists, only: [:index, :show, :create, :destroy, :update]
   # resources :examples, except: [:new, :edit]
   post '/sign-up' => 'users#signup'
